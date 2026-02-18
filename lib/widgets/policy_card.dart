@@ -8,9 +8,9 @@ class PolicyCard extends StatelessWidget {
   final Policy policy;
 
   const PolicyCard({
-    Key? key,
+    super.key,
     required this.policy,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class PolicyCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(AppTheme.spacing8),
                 decoration: BoxDecoration(
-                  color: AppTheme.primaryBlue.withOpacity(0.1),
+                  color: AppTheme.primaryBlue.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(AppTheme.radiusSmall),
                 ),
                 child: const Icon(
@@ -45,41 +45,40 @@ class PolicyCard extends StatelessWidget {
               _StatusBadge(status: policy.status),
             ],
           ),
-          const SizedBox(height: AppTheme.spacing16),
+          const SizedBox(height: AppTheme.spacing8),
           
           // Policy name
           Text(
             policy.name,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
-              fontSize: 15,
+              fontSize: 14,
               fontWeight: FontWeight.bold,
             ),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
-          const SizedBox(height: AppTheme.spacing4),
           
           // Policy ID
           Text(
             policy.policyId,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              fontSize: 11,
+              fontSize: 10,
               color: AppTheme.textGrey,
             ),
           ),
-          const SizedBox(height: AppTheme.spacing8),
+          const SizedBox(height: AppTheme.spacing4),
           
           // Description
           Text(
             policy.description,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              fontSize: 12,
+              fontSize: 11,
               color: AppTheme.textGrey,
             ),
-            maxLines: 2,
+            maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
-          const SizedBox(height: AppTheme.spacing16),
+          const SizedBox(height: AppTheme.spacing8),
           
           // Bottom row: Premium and Sum Insured
           Row(
@@ -157,9 +156,8 @@ class _StatusBadge extends StatelessWidget {
   final PolicyStatus status;
 
   const _StatusBadge({
-    Key? key,
     required this.status,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

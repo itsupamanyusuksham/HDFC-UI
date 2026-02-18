@@ -8,7 +8,7 @@ void main() {
 
 /// Main application widget
 class HDFCInsuranceApp extends StatelessWidget {
-  const HDFCInsuranceApp({Key? key}) : super(key: key);
+  const HDFCInsuranceApp({super.key});
 
   @override
   Widget build(BuildContext context) {

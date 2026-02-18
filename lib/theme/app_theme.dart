@@ -14,6 +14,8 @@ class AppTheme {
   static const Color statusDue = Color(0xFFFBBF24);
   
   // Spacing System
+  static const double spacing68 = 2.0;
+  static const double spacing69 = 2.0;
   static const double spacing4 = 4.0;
   static const double spacing8 = 8.0;
   static const double spacing12 = 12.0;
@@ -31,7 +33,7 @@ class AppTheme {
   // Shadows
   static List<BoxShadow> get cardShadow => [
     BoxShadow(
-      color: Colors.black.withOpacity(0.05),
+      color: Colors.black.withValues(alpha: 0.05),
       blurRadius: 10,
       offset: const Offset(0, 2),
     ),
@@ -39,7 +41,7 @@ class AppTheme {
   
   static List<BoxShadow> get softShadow => [
     BoxShadow(
-      color: Colors.black.withOpacity(0.08),
+      color: Colors.black.withValues(alpha: 0.08),
       blurRadius: 15,
       offset: const Offset(0, 4),
     ),
@@ -52,8 +54,8 @@ class AppTheme {
       colorScheme: ColorScheme.fromSeed(
         seedColor: primaryBlue,
         primary: primaryBlue,
-        background: backgroundGrey,
-        surface: cardWhite,
+        surface: backgroundGrey,
+        onSurface: textDark,
       ),
       scaffoldBackgroundColor: backgroundGrey,
       

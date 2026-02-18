@@ -8,10 +8,10 @@ class CategoryFilter extends StatelessWidget {
   final Function(PolicyCategory) onCategorySelected;
 
   const CategoryFilter({
-    Key? key,
+    super.key,
     required this.selectedCategory,
     required this.onCategorySelected,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -41,11 +41,10 @@ class _FilterChip extends StatelessWidget {
   final VoidCallback onTap;
 
   const _FilterChip({
-    Key? key,
     required this.label,
     required this.isSelected,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
