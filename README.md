@@ -29,5 +29,29 @@ lib/
 └── theme/
     └── app_theme.dart           # Theme configuration
 ```
+## Key Components
 
+### CustomAppBar
+- HDFC logo with blue background
+- Customer name and ID
+- Avatar with initials
+- Logout button
+
+### SummaryCard
+- Icon with background
+- Title and value
+- Optional subtitle
+- Soft shadow and border
+
+### CategoryFilter
+- Pill-shaped buttons
+- Active/inactive states
+- Smooth selection animation
+
+### PolicyCard
+- Shield icon
+- Status badge (Active/Due)
+- Policy details
+- Premium and sum insured
+- Arrow indicator
 
