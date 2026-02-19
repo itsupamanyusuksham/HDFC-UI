@@ -4,7 +4,6 @@ import '../models/policy_model.dart';
 import '../theme/app_theme.dart';
 import '../screens/policy_detail_screen.dart';
 
-/// Policy card widget displaying policy information
 class PolicyCard extends StatelessWidget {
   final Policy policy;
 
@@ -21,7 +20,7 @@ class PolicyCard extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => PolicyDetailScreen(
               policy: policy,
-              customerId: 'HDFC123', // Hardcoded for now as it's not in Policy model
+              customerId: 'HDFC123',
               customerName: 'Hrisheekesh Rabha',
             ),
           ),
@@ -36,34 +35,37 @@ class PolicyCard extends StatelessWidget {
         ),
         child: Row(
           children: [
+
+            /// ================= MAIN CONTENT =================
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  // Top row: Shield icon and status badge
+
+                  /// TOP ROW
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // Shield icon
                       Container(
-                        padding: const EdgeInsets.all(AppTheme.spacing4),
+                        padding: const EdgeInsets.all(4),
                         decoration: BoxDecoration(
-                          color: AppTheme.primaryBlue.withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(AppTheme.radiusSmall),
+                          color: AppTheme.primaryBlue.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(6),
                         ),
                         child: const Icon(
                           Icons.shield_outlined,
                           color: AppTheme.primaryBlue,
-                          size: 20,
+                          size: 18,
                         ),
                       ),
-                      // Status badge
                       _StatusBadge(status: policy.status),
                     ],
                   ),
-                  const SizedBox(height: AppTheme.spacing4),
-                  
-                  // Policy name
+
+                  const SizedBox(height: 6),
+
+                  /// POLICY NAME
                   Text(
                     policy.name,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -73,8 +75,8 @@ class PolicyCard extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  
-                  // Policy ID
+
+                  /// POLICY ID
                   Text(
                     policy.policyId,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -82,9 +84,10 @@ class PolicyCard extends StatelessWidget {
                       color: AppTheme.textGrey,
                     ),
                   ),
-                  const SizedBox(height: AppTheme.spacing2),
-                  
-                  // Description
+
+                  const SizedBox(height: 2),
+
+                  /// DESCRIPTION
                   Text(
                     policy.description,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -94,76 +97,87 @@ class PolicyCard extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  const SizedBox(height: AppTheme.spacing12),
-                  
-                  // Bottom row: Premium and Sum Insured
-                  Row(
-                    children: [
-                      Flexible(
-                        flex: 3,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Annual Premium',
-                              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                fontSize: 10,
-                                color: AppTheme.textGrey,
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
+
+                  const SizedBox(height: 12),
+
+                  /// ================= SAFE PREMIUM SECTION =================
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+
+                      final isMobile = constraints.maxWidth < 260;
+
+                      return Wrap(
+                        spacing: 20,
+                        runSpacing: 6,
+                        children: [
+
+                          SizedBox(
+                            width: isMobile
+                                ? constraints.maxWidth
+                                : 120,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Annual Premium',
+                                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    fontSize: 10,
+                                    color: AppTheme.textGrey,
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  _formatCurrency(policy.annualPremium),
+                                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
                             ),
-                            const SizedBox(height: AppTheme.spacing4),
-                            Text(
-                              _formatCurrency(policy.annualPremium),
-                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
+                          ),
+
+                          SizedBox(
+                            width: isMobile
+                                ? constraints.maxWidth
+                                : 120,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Sum Insured',
+                                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    fontSize: 10,
+                                    color: AppTheme.textGrey,
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  _formatCurrency(policy.sumInsured),
+                                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(width: AppTheme.spacing8),
-                      Flexible(
-                        flex: 3,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Sum Insured',
-                              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                fontSize: 10,
-                                color: AppTheme.textGrey,
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            const SizedBox(height: AppTheme.spacing4),
-                            Text(
-                              _formatCurrency(policy.sumInsured),
-                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                          ),
+                        ],
+                      );
+                    },
                   ),
                 ],
               ),
             ),
-            const SizedBox(width: AppTheme.spacing8),
-            // Arrow icon positioned centrally on the right
+
+            const SizedBox(width: 6),
+
+            /// ARROW
             const Icon(
               Icons.arrow_forward_ios,
-              size: 16,
+              size: 14,
               color: AppTheme.textGrey,
             ),
           ],
@@ -172,7 +186,7 @@ class PolicyCard extends StatelessWidget {
     );
   }
 
-  /// Format currency in Indian format
+  /// FORMAT ₹
   String _formatCurrency(double amount) {
     final formatter = NumberFormat.currency(
       locale: 'en_IN',
@@ -183,7 +197,6 @@ class PolicyCard extends StatelessWidget {
   }
 }
 
-/// Status badge widget
 class _StatusBadge extends StatelessWidget {
   final PolicyStatus status;
 
@@ -195,15 +208,19 @@ class _StatusBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     final isActive = status == PolicyStatus.active;
     final isDue = status == PolicyStatus.due;
-    final color = isActive 
-        ? AppTheme.statusActive 
+
+    final color = isActive
+        ? AppTheme.statusActive
         : (isDue ? AppTheme.statusDue : AppTheme.statusExpired);
-    final label = isActive ? 'Active' : (isDue ? 'Due' : 'Expired');
+
+    final label = isActive
+        ? 'Active'
+        : (isDue ? 'Due' : 'Expired');
 
     return Container(
       padding: const EdgeInsets.symmetric(
-        horizontal: AppTheme.spacing12,
-        vertical: AppTheme.spacing4,
+        horizontal: 10,
+        vertical: 3,
       ),
       decoration: BoxDecoration(
         color: color,
@@ -214,7 +231,7 @@ class _StatusBadge extends StatelessWidget {
         style: Theme.of(context).textTheme.bodySmall?.copyWith(
           color: Colors.white,
           fontWeight: FontWeight.w600,
-          fontSize: 11,
+          fontSize: 10,
         ),
       ),
     );
