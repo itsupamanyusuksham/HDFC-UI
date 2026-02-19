@@ -6,10 +6,13 @@ import '../widgets/summary_card.dart';
 import '../widgets/category_filter.dart';
 import '../widgets/policy_card.dart';
 
-/// Main dashboard screen displaying insurance policies and summary
 class DashboardScreen extends StatefulWidget {
   final String customerId;
-  const DashboardScreen({super.key, required this.customerId});
+
+  const DashboardScreen({
+    super.key,
+    required this.customerId,
+  });
 
   @override
   State<DashboardScreen> createState() => _DashboardScreenState();
@@ -19,9 +22,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
   PolicyCategory _selectedCategory = PolicyCategory.all;
   final List<Policy> _allPolicies = PolicyData.getSamplePolicies();
 
-  /// Get filtered and sorted policies based on selected category
   List<Policy> get _filteredPolicies {
     List<Policy> filtered;
+
     if (_selectedCategory == PolicyCategory.all) {
       filtered = List.from(_allPolicies);
     } else {
@@ -30,52 +33,55 @@ class _DashboardScreenState extends State<DashboardScreen> {
           .toList();
     }
 
-    // Sort by status: Due (0), Active (1), Expired (2)
     filtered.sort((a, b) {
       int getPriority(PolicyStatus status) {
         switch (status) {
-          case PolicyStatus.due: return 0;
-          case PolicyStatus.active: return 1;
-          case PolicyStatus.expired: return 2;
+          case PolicyStatus.due:
+            return 0;
+          case PolicyStatus.active:
+            return 1;
+          case PolicyStatus.expired:
+            return 2;
         }
       }
+
       return getPriority(a.status).compareTo(getPriority(b.status));
     });
+
     return filtered;
   }
 
-  /// Calculate total annual premium
-  double get _totalAnnualPremium {
-    return _allPolicies.fold(0, (sum, policy) => sum + policy.annualPremium);
-  }
+  double get _totalAnnualPremium =>
+      _allPolicies.fold(0, (sum, p) => sum + p.annualPremium);
 
-  /// Calculate total coverage
-  double get _totalCoverage {
-    return _allPolicies.fold(0, (sum, policy) => sum + policy.sumInsured);
-  }
+  double get _totalCoverage =>
+      _allPolicies.fold(0, (sum, p) => sum + p.sumInsured);
 
   @override
   Widget build(BuildContext context) {
-    // Cache filtered policies for this build cycle to ensure consistency
     final filteredPolicies = _filteredPolicies;
 
     return LayoutBuilder(
       builder: (context, constraints) {
         final isMobile = constraints.maxWidth < 600;
+
         return Scaffold(
           backgroundColor: AppTheme.backgroundGrey,
+
           appBar: CustomAppBar(
             customerName: 'Hrisheekesh Rabha',
             customerId: widget.customerId,
             onLogoTap: () {
               Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
-                  builder: (context) => DashboardScreen(customerId: widget.customerId),
+                  builder: (context) =>
+                      DashboardScreen(customerId: widget.customerId),
                 ),
                 (route) => false,
               );
             },
           ),
+
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(AppTheme.spacing24),
@@ -83,21 +89,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: AppTheme.spacing24),
-                  
-                  // Welcome text
+
+                  /// Welcome Text
                   Text(
                     'Welcome back, Hrisheekesh Rabha!',
-                    style: isMobile 
-                        ? Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold)
+                    style: isMobile
+                        ? Theme.of(context)
+                            .textTheme
+                            .headlineMedium
+                            ?.copyWith(fontWeight: FontWeight.bold)
                         : Theme.of(context).textTheme.headlineLarge,
                   ),
+
                   const SizedBox(height: AppTheme.spacing24),
-                  
-                  // Summary cards
+
+                  /// SUMMARY CARDS
                   _buildSummaryCards(constraints.maxWidth),
+
                   const SizedBox(height: AppTheme.spacing24),
-                  
-                  // Category filter buttons
+
+                  /// CATEGORY FILTER
                   CategoryFilter(
                     selectedCategory: _selectedCategory,
                     onCategorySelected: (category) {
@@ -106,10 +117,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       });
                     },
                   ),
+
                   const SizedBox(height: AppTheme.spacing24),
-                  
-                  // Policy cards grid
+
+                  /// POLICY GRID (FIXED)
                   _buildPolicyGrid(constraints.maxWidth, filteredPolicies),
+
                   const SizedBox(height: AppTheme.spacing24),
                 ],
               ),
@@ -120,7 +133,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  /// Build summary cards based on screen width
+  /// ================= SUMMARY CARDS =================
   Widget _buildSummaryCards(double maxWidth) {
     final cards = [
       SummaryCard(
@@ -143,57 +156,63 @@ class _DashboardScreenState extends State<DashboardScreen> {
     ];
 
     if (maxWidth < 600) {
-      // Mobile: Vertical stack, full width
       return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: cards.map((card) => Padding(
-          padding: const EdgeInsets.only(bottom: AppTheme.spacing16),
-          child: card,
-        )).toList(),
+        children: cards
+            .map((card) => Padding(
+                  padding: const EdgeInsets.only(bottom: AppTheme.spacing16),
+                  child: card,
+                ))
+            .toList(),
       );
     } else if (maxWidth < 1100) {
-      // Tablet: Horizontal scroll or wrapping
       return SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
-          children: cards.map((card) => Padding(
-            padding: const EdgeInsets.only(right: AppTheme.spacing16),
-            child: SizedBox(width: 260, child: card),
-          )).toList(),
+          children: cards
+              .map((card) => Padding(
+                    padding: const EdgeInsets.only(right: AppTheme.spacing16),
+                    child: SizedBox(width: 260, child: card),
+                  ))
+              .toList(),
         ),
       );
     } else {
-      // Desktop: Single Row with Expanded cards for even width
-      return IntrinsicHeight(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: cards.map((card) => Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(right: AppTheme.spacing16),
-              child: card,
-            ),
-          )).toList(),
-        ),
+      return Row(
+        children: cards
+            .map((card) => Expanded(
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(right: AppTheme.spacing16),
+                    child: card,
+                  ),
+                ))
+            .toList(),
       );
     }
   }
 
-  /// Build responsive grid of policy cards
+  /// ================= POLICY GRID (OVERFLOW FIXED) =================
   Widget _buildPolicyGrid(double maxWidth, List<Policy> filteredPolicies) {
-    int crossAxisCount = 1;
-    double childAspectRatio = 1.8;
+    int crossAxisCount;
+    double childAspectRatio;
 
-    if (maxWidth > 1100) {
+    if (maxWidth > 1400) {
+      crossAxisCount = 4;
+      childAspectRatio = 1.6;
+    } 
+    else if (maxWidth > 1100) {
       crossAxisCount = 3;
-      childAspectRatio = 1.75;
-    } else if (maxWidth > 650) {
+      childAspectRatio = 1.55;
+    } 
+    else if (maxWidth > 750) {
       crossAxisCount = 2;
-      childAspectRatio = 1.9;
-    } else {
+      childAspectRatio = 1.5;
+    } 
+    else {
       crossAxisCount = 1;
-      childAspectRatio = 1.6; // Increased height to prevent overflow
+      childAspectRatio = 1.35;
     }
-    
+
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -210,7 +229,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  /// Format large amounts with commas
+  /// Amount Formatter
   String _formatAmount(double amount) {
     if (amount >= 10000000) {
       return '${(amount / 10000000).toStringAsFixed(1)} Cr';
