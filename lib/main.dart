@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'theme/app_theme.dart';
 import 'screens/login_screen.dart';
+import 'screens/dashboard_screen.dart';
+import 'screens/analytical_dashboard.dart';
+import 'screens/recovery_verification_screen.dart';
+import 'screens/recovery_otp_screen.dart';
+import 'screens/policy_detail_screen.dart';
+import 'models/policy_model.dart';
 
 void main() {
   runApp(const HDFCInsuranceApp());
@@ -16,7 +22,64 @@ class HDFCInsuranceApp extends StatelessWidget {
       title: 'HDFC Insurance Dashboard',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      home: const LoginScreen(),
+      initialRoute: '/',
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case '/':
+            return MaterialPageRoute(builder: (_) => const LoginScreen());
+          
+          case '/dashboard':
+            final args = settings.arguments as Map<String, dynamic>;
+            return MaterialPageRoute(
+              builder: (_) => DashboardScreen(
+                customerId: args['customerId'],
+              ),
+            );
+
+          case '/analytics':
+            final args = settings.arguments as Map<String, dynamic>;
+            return MaterialPageRoute(
+              builder: (_) => AnalyticsDashboard(
+                customerName: args['customerName'],
+                customerId: args['customerId'],
+              ),
+            );
+
+          case '/recovery':
+            final args = settings.arguments as Map<String, dynamic>?;
+            return MaterialPageRoute(
+              builder: (_) => RecoveryVerificationScreen(
+                mode: args?['mode'] ?? RecoveryMode.forgotPassword,
+              ),
+            );
+
+          case '/otp':
+            final args = settings.arguments as Map<String, dynamic>;
+            return MaterialPageRoute(
+              builder: (_) => RecoveryOtpScreen(
+                customerId: args['customerId'],
+                destination: args['destination'],
+              ),
+            );
+
+          case '/policy-detail':
+            final args = settings.arguments as Map<String, dynamic>;
+            return MaterialPageRoute(
+              builder: (_) => PolicyDetailScreen(
+                policy: args['policy'] as Policy,
+                customerId: args['customerId'],
+                customerName: args['customerName'],
+              ),
+            );
+
+          default:
+            return MaterialPageRoute(
+              builder: (_) => Scaffold(
+                body: Center(child: Text('No route defined for ${settings.name}')),
+              ),
+            );
+        }
+      },
     );
   }
 }
