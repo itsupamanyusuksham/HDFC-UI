@@ -46,7 +46,7 @@ class CategoryFilter extends StatelessWidget {
   }
 }
 
-/// Individual filter chip widget
+//individual category filter chip widget
 class _FilterChip extends StatelessWidget {
   final String label;
   final bool isSelected;
@@ -83,7 +83,7 @@ class _FilterChip extends StatelessWidget {
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: isSelected ? Colors.white : AppTheme.textGrey,
             fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
-            fontSize: 12, // Reduced from 13
+            fontSize: 12, 
           ),
         ),
       ),

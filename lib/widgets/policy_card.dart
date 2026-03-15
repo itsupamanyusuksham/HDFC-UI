@@ -21,7 +21,7 @@ class PolicyCard extends StatelessWidget {
             builder: (context) => PolicyDetailScreen(
               policy: policy,
               customerId: 'HDFC123',
-              customerName: 'Hrisheekesh Rabha',
+              customerName: 'Sureshh Das',
             ),
           ),
         );
@@ -38,7 +38,7 @@ class PolicyCard extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                /// ================= ICON =================
+               
                 Container(
                   padding: const EdgeInsets.all(AppTheme.spacing8),
                   decoration: BoxDecoration(
@@ -54,26 +54,23 @@ class PolicyCard extends StatelessWidget {
 
                 const SizedBox(width: AppTheme.spacing16),
 
-                /// ================= MAIN CONTENT =================
+            
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      /// TITLE ROW (Badge moved to Stack)
                       Padding(
-                        padding: const EdgeInsets.only(right: 70), // Enough room for the badge
+                        padding: const EdgeInsets.only(right: 70),
                         child: Text(
                           policy.name,
                           style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            fontSize: 13, // Reduced from 14
+                            fontSize: 13, 
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
-
                       const SizedBox(height: 4),
-
                       /// POLICY ID
                       Text(
                         policy.policyId,
@@ -82,21 +79,25 @@ class PolicyCard extends StatelessWidget {
                           color: AppTheme.textGrey,
                         ),
                       ),
-
                       const SizedBox(height: 4),
-
-                      /// DESCRIPTION
                       Text(
                         policy.description,
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontSize: 10, // Reduced from 11
+                          fontSize: 10, 
                           color: AppTheme.textGrey,
                         ),
                       ),
-
+                      const SizedBox(height: 4),
+                     
+                      Text(
+                        'Expires: ${DateFormat('dd/MM/yyyy').format(policy.expiryDate)}',
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          fontSize: 9,
+                          fontWeight: FontWeight.w600,
+                          color: AppTheme.primaryBlue,
+                        ),
+                      ),
                       const SizedBox(height: 8),
-
-                      /// ================= SAFE PREMIUM SECTION =================
                       Row(
                         children: [
                           Expanded(
@@ -117,7 +118,7 @@ class PolicyCard extends StatelessWidget {
                                   child: Text(
                                     _formatCurrency(policy.annualPremium),
                                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                      fontSize: 13, // Reduced from 14
+                                      fontSize: 13, 
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -144,7 +145,7 @@ class PolicyCard extends StatelessWidget {
                                   child: Text(
                                     _formatCurrency(policy.sumInsured),
                                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                      fontSize: 13, // Reduced from 14
+                                      fontSize: 13, 
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -160,9 +161,8 @@ class PolicyCard extends StatelessWidget {
 
                 const SizedBox(width: 8),
 
-                /// ARROW (Aligned with the bottom section)
                 const Padding(
-                  padding: EdgeInsets.only(top: 80), // Adjust to align with the bottom row
+                  padding: EdgeInsets.only(top: 80), 
                   child: Icon(
                     Icons.arrow_forward_ios,
                     size: 14,
@@ -172,7 +172,7 @@ class PolicyCard extends StatelessWidget {
               ],
             ),
 
-            /// ============= PINNED STATUS BADGE =============
+      
             Positioned(
               top: 0,
               right: 0,
@@ -184,7 +184,6 @@ class PolicyCard extends StatelessWidget {
     );
   }
 
-  /// FORMAT ₹
   String _formatCurrency(double amount) {
     final formatter = NumberFormat.currency(
       locale: 'en_IN',
@@ -206,14 +205,19 @@ class _StatusBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     final isActive = status == PolicyStatus.active;
     final isDue = status == PolicyStatus.due;
+    final isExpiringSoon = status == PolicyStatus.expiringsoon;
 
-    final color = isActive
-        ? AppTheme.statusActive
-        : (isDue ? AppTheme.statusDue : AppTheme.statusExpired);
+   final color = isActive
+    ? AppTheme.statusActive
+    : (isExpiringSoon
+        ? AppTheme.statusexpiringsoon 
+        : (isDue ? AppTheme.statusDue : AppTheme.statusExpired));
 
-    final label = isActive
-        ? 'Active'
-        : (isDue ? 'Due' : 'Expired');
+final label = isActive
+    ? 'Active'
+    : (isExpiringSoon
+        ? 'Expiring Soon'
+        : (isDue ? 'Due' : 'Expired'));
 
     return Container(
       padding: const EdgeInsets.symmetric(

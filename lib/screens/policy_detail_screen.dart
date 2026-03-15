@@ -31,7 +31,7 @@ class PolicyDetailScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Top Summary Card
+              
               _buildSummaryHeader(context),
               const SizedBox(height: AppTheme.spacing24),
               
@@ -141,16 +141,15 @@ class PolicyDetailScreen extends StatelessWidget {
             width: isCompact ? 0 : AppTheme.spacing24,
             height: isCompact ? AppTheme.spacing16 : 0,
           ),
-          // Due Date Badge
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             decoration: BoxDecoration(
               color: AppTheme.primaryBlue,
               borderRadius: BorderRadius.circular(AppTheme.radiusPill),
             ),
-            child: const Text(
-              'Due Date : 12/02/2026',
-              style: TextStyle(
+            child: Text(
+              'Expiry Date : ${DateFormat('dd/MM/yyyy').format(policy.expiryDate)}',
+              style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
                 fontSize: 14,
@@ -184,10 +183,10 @@ class PolicyDetailScreen extends StatelessWidget {
       context,
       title: 'Policy Overview',
       items: [
-        _DetailItem('Status', policy.status == PolicyStatus.active ? 'Active' : (policy.status == PolicyStatus.due ? 'Due' : 'Expired')),
-        _DetailItem('Coverage', policy.category == PolicyCategory.life ? 'Life Insurance' : (policy.category == PolicyCategory.health ? 'Health Insurance' : 'Others')),
+        _DetailItem('Status', policy.status.name.toUpperCase()),
+        _DetailItem('Coverage', policy.category.displayName),
         const _DetailItem('Start Date', '12/02/24'),
-        const _DetailItem('Expiration Date', '12/06/27'),
+        _DetailItem('Expiry Date', DateFormat('dd/MM/yyyy').format(policy.expiryDate)),
         _DetailItem('Premium', '₹ ${NumberFormat('#,##,###').format(policy.annualPremium)}/year'),
         const _DetailItem('Policy Term', '25 Years'),
         const _DetailItem('Payment Term', '10 Years'),

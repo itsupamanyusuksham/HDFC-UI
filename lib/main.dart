@@ -6,6 +6,7 @@ import 'screens/analytical_dashboard.dart';
 import 'screens/recovery_verification_screen.dart';
 import 'screens/recovery_otp_screen.dart';
 import 'screens/policy_detail_screen.dart';
+import 'screens/profile_screen.dart';
 import 'models/policy_model.dart';
 
 void main() {
@@ -72,6 +73,15 @@ class HDFCInsuranceApp extends StatelessWidget {
               ),
             );
 
+          case '/profile':
+            final args = settings.arguments as Map<String, dynamic>;
+            return MaterialPageRoute(
+              builder: (_) => ProfileScreen(
+                customerName: args['customerName'],
+                customerId: args['customerId'],
+              ),
+            );
+
           default:
             return MaterialPageRoute(
               builder: (_) => Scaffold(
@@ -79,7 +89,6 @@ class HDFCInsuranceApp extends StatelessWidget {
               ),
             );
         }
-      },
-    );
+      },    );
   }
 }
