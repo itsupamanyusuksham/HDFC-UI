@@ -153,32 +153,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         const SizedBox(height: 8),
                         _buildMenuItem(
                           context,
-                          icon: Icons.support_agent_outlined,
-                          title: 'Contact Us',
+                          icon: Icons.logout,
+                          title: 'Logout',
                         ),
                       ],
                     ),
 
                     SizedBox(width: isMobile ? 4 : AppTheme.spacing8),
-
-                    // Logout button 
-                    IconButton(
-                      icon: Icon(
-                        Icons.logout,
-                        color: Colors.white,
-                        size: isMobile ? 18 : 20,
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                const LoginScreen(),
-                          ),
-                        );
-                      },
-                      padding: EdgeInsets.zero,
-                      constraints: const BoxConstraints(),
-                    ),
                   ],
                 ),
               ),
@@ -217,7 +198,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
           );
-        } else if (title == 'Get Help' || title == 'Contact Us') {
+        } else if (title == 'Get Help') {
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -225,6 +206,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 customerName: customerName,
                 customerId: customerId,
               ),
+            ),
+          );
+        } else if (title == 'Logout') {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => const LoginScreen(),
             ),
           );
         } else {
