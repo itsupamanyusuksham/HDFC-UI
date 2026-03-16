@@ -4,6 +4,7 @@ import '../theme/app_theme.dart';
 import '../screens/login_screen.dart';
 import '../screens/analytical_dashboard.dart';
 import '../screens/profile_screen.dart';
+import '../screens/help_screen.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String customerName;
@@ -140,7 +141,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         _buildMenuItem(
                           context,
                           icon: Icons.grid_view_outlined,
-                          title: 'Dashboard',
+                          title: 'Insights',
                           subtitle: 'coverage insights',
                         ),
                         const SizedBox(height: 8),
@@ -152,32 +153,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         const SizedBox(height: 8),
                         _buildMenuItem(
                           context,
-                          icon: Icons.support_agent_outlined,
-                          title: 'Contact Us',
+                          icon: Icons.logout,
+                          title: 'Logout',
                         ),
                       ],
                     ),
 
                     SizedBox(width: isMobile ? 4 : AppTheme.spacing8),
-
-                    // Logout button 
-                    IconButton(
-                      icon: Icon(
-                        Icons.logout,
-                        color: Colors.white,
-                        size: isMobile ? 18 : 20,
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                const LoginScreen(),
-                          ),
-                        );
-                      },
-                      padding: EdgeInsets.zero,
-                      constraints: const BoxConstraints(),
-                    ),
                   ],
                 ),
               ),
@@ -196,7 +178,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }) {
     return MenuItemButton(
       onPressed: () {
-        if (title == 'Dashboard') {
+        if (title == 'Insights') {
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -214,6 +196,22 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 customerName: customerName,
                 customerId: customerId,
               ),
+            ),
+          );
+        } else if (title == 'Get Help') {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HelpScreen(
+                customerName: customerName,
+                customerId: customerId,
+              ),
+            ),
+          );
+        } else if (title == 'Logout') {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => const LoginScreen(),
             ),
           );
         } else {

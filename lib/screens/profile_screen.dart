@@ -357,7 +357,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           title: 'KYC Details',
           rows: [
             _InfoRow('PAN', 'ALRPU1234A', isObscured: true),
-            _InfoRow('Aadhaar', '1234 5678 1234', isObscured: true),
+            _InfoRow('Aadhaar', 'xxxx xxxx 9564', isObscured: true),
             _InfoRow('KYC Status', 'Verified', isStatus: true),
           ],
         ),
