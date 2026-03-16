@@ -14,21 +14,26 @@ A Flutter implementation of the HDFC Bank insurance dashboard, featuring Materia
 
 ## 📁 Folder Structure
 
-```
 lib/
 ├── main.dart                    # App entry point
-├── screens/
-│   └── dashboard_screen.dart    # Main dashboard screen
-├── widgets/
-│   ├── custom_appbar.dart       # HDFC branded AppBar
-│   ├── summary_card.dart        # Metric summary cards
-│   ├── category_filter.dart     # Filter pill buttons
-│   └── policy_card.dart         # Policy information cards
 ├── models/
 │   └── policy_model.dart        # Policy data model
-└── theme/
-    └── app_theme.dart           # Theme configuration
-```
+├── screens/
+│   ├── analytical_dashboard.dart # Analytical dashboard with charts
+│   ├── dashboard_screen.dart    # Main dashboard screen
+│   ├── login_screen.dart        # User login screen
+│   ├── policy_detail_screen.dart # Detailed policy view
+│   ├── recovery_otp_screen.dart  # OTP verification for recovery
+│   └── recovery_verification_screen.dart # Recovery process verification
+├── theme/
+│   └── app_theme.dart           # Theme configuration
+└── widgets/
+    ├── category_filter.dart     # Filter pill buttons
+    ├── custom_appbar.dart       # HDFC branded AppBar
+    ├── donut_chart.dart         # Custom donut chart for analytics
+    ├── info_card.dart           # Informational cards
+    ├── policy_card.dart         # Policy information cards
+    └── summary_card.dart        # Metric summary cards
 ## Key Components
 
 ### CustomAppBar

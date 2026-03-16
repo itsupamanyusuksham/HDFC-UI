@@ -20,13 +20,29 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   PolicyCategory _selectedCategory = PolicyCategory.all;
-  final List<Policy> _allPolicies = PolicyData.getSamplePolicies();
+  List<Policy> get _allPolicies => PolicyData.getSamplePolicies();
 
   List<Policy> get _filteredPolicies {
     List<Policy> filtered;
 
     if (_selectedCategory == PolicyCategory.all) {
       filtered = List.from(_allPolicies);
+    } else if (_selectedCategory == PolicyCategory.active) {
+      filtered = _allPolicies
+          .where((policy) => policy.status == PolicyStatus.active)
+          .toList();
+    } else if (_selectedCategory == PolicyCategory.due) {
+      filtered = _allPolicies
+          .where((policy) => policy.status == PolicyStatus.due)
+          .toList();
+    } else if (_selectedCategory == PolicyCategory.expired) {
+      filtered = _allPolicies
+          .where((policy) => policy.status == PolicyStatus.expired)
+          .toList();
+           } else if (_selectedCategory == PolicyCategory.expiringsoon) {
+      filtered = _allPolicies
+          .where((policy) => policy.status == PolicyStatus.expiringsoon)
+          .toList();
     } else {
       filtered = _allPolicies
           .where((policy) => policy.category == _selectedCategory)
@@ -42,6 +58,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
             return 1;
           case PolicyStatus.expired:
             return 2;
+            case PolicyStatus. expiringsoon:
+            return 3;
         }
       }
 
@@ -69,7 +87,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           backgroundColor: AppTheme.backgroundGrey,
 
           appBar: CustomAppBar(
-            customerName: 'Hrisheekesh Rabha',
+            customerName: 'Suresh Das',
             customerId: widget.customerId,
             onLogoTap: () {
               Navigator.of(context).pushAndRemoveUntil(
@@ -92,7 +110,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
                   /// Welcome Text
                   Text(
-                    'Welcome back, Hrisheekesh Rabha!',
+                    'Welcome back, Suresh Das!',
                     style: isMobile
                         ? Theme.of(context)
                             .textTheme
@@ -121,7 +139,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
                   SizedBox(height: isMobile ? AppTheme.spacing16 : AppTheme.spacing24),
 
-                  /// POLICY GRID (FIXED)
                   _buildPolicyGrid(constraints.maxWidth, filteredPolicies),
 
                   SizedBox(height: isMobile ? AppTheme.spacing16 : AppTheme.spacing24),
@@ -134,7 +151,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  /// ================= SUMMARY CARDS =================
   Widget _buildSummaryCards(double maxWidth) {
     final cards = [
       SummaryCard(
@@ -166,7 +182,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             .toList(),
       );
     } else {
-      // Use Row with IntrinsicHeight to make all cards equal size
+     
       return IntrinsicHeight(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -182,7 +198,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     }
   }
 
-  /// ================= POLICY GRID (OVERFLOW FIXED) =================
+ 
   Widget _buildPolicyGrid(double maxWidth, List<Policy> filteredPolicies) {
     int crossAxisCount;
     double childAspectRatio;
@@ -220,7 +236,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  /// Amount Formatter
+
   String _formatAmount(double amount) {
     if (amount >= 10000000) {
       return '${(amount / 10000000).toStringAsFixed(1)} Cr';

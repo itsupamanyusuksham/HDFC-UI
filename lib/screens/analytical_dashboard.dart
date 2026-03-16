@@ -17,10 +17,10 @@ class AnalyticsDashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Fetch policies from the model
+   
     final policies = PolicyData.getSamplePolicies();
 
-    // Calculate Summary Values
+  
     final totalPolicies = policies.length;
     final totalProtection = policies
         .where((p) => p.status != PolicyStatus.expired)

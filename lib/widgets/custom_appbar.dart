@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../theme/app_theme.dart';
 import '../screens/login_screen.dart';
 import '../screens/analytical_dashboard.dart';
+import '../screens/profile_screen.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String customerName;
@@ -33,7 +34,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // HDFC Logo
+              // HDFC Logo on app bar
               InkWell(
                 onTap: onLogoTap,
                 child: SvgPicture.asset(
@@ -48,7 +49,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    // Customer Name + ID
+                    // Customer Name + ID on app bar
                     Flexible(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -87,7 +88,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
                     const SizedBox(width: AppTheme.spacing8),
 
-                    // PROFILE MENU (UNCHANGED DESIGN)
+                
                     MenuAnchor(
                       style: MenuStyle(
                         backgroundColor:
@@ -159,7 +160,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
                     SizedBox(width: isMobile ? 4 : AppTheme.spacing8),
 
-                    // Logout
+                    // Logout button 
                     IconButton(
                       icon: Icon(
                         Icons.logout,
@@ -200,6 +201,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             context,
             MaterialPageRoute(
               builder: (context) => AnalyticsDashboard(
+                customerName: customerName,
+                customerId: customerId,
+              ),
+            ),
+          );
+        } else if (title == 'Profile') {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProfileScreen(
                 customerName: customerName,
                 customerId: customerId,
               ),

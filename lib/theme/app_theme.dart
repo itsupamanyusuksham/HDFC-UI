@@ -12,7 +12,8 @@ class AppTheme {
   static const Color textGrey = Color(0xFF6B7280);
   static const Color statusActive = Color(0xFF10B981);
   static const Color statusDue = Color(0xFFFBBF24);
-  static const Color statusExpired = Color(0xFF9CA3AF);
+  static const Color statusexpiringsoon = Color.fromARGB(255, 191, 187, 160);
+  static const Color statusExpired = Color.fromARGB(255, 251, 25, 4);
   static const Color primaryRed = Color(0xFFD32F2F);
   static const Color darkestBlue = Color(0xFF003366);
   
