@@ -4,6 +4,7 @@ import '../theme/app_theme.dart';
 import '../screens/login_screen.dart';
 import '../screens/analytical_dashboard.dart';
 import '../screens/profile_screen.dart';
+import '../screens/help_screen.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String customerName;
@@ -140,7 +141,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         _buildMenuItem(
                           context,
                           icon: Icons.grid_view_outlined,
-                          title: 'Dashboard',
+                          title: 'Insights',
                           subtitle: 'coverage insights',
                         ),
                         const SizedBox(height: 8),
@@ -196,7 +197,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }) {
     return MenuItemButton(
       onPressed: () {
-        if (title == 'Dashboard') {
+        if (title == 'Insights') {
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -211,6 +212,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             context,
             MaterialPageRoute(
               builder: (context) => ProfileScreen(
+                customerName: customerName,
+                customerId: customerId,
+              ),
+            ),
+          );
+        } else if (title == 'Get Help' || title == 'Contact Us') {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HelpScreen(
                 customerName: customerName,
                 customerId: customerId,
               ),

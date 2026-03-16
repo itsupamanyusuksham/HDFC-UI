@@ -51,9 +51,9 @@ enum PolicyCategory {
   health,
   active,
   due,
+  expiringsoon,
   expired,
   others,
-  expiringsoon,
 }
 
 extension PolicyCategoryExtension on PolicyCategory {
