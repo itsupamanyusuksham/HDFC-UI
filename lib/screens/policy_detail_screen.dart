@@ -263,5 +263,10 @@ class PolicyDetailScreen extends StatelessWidget {
       ),
     );
   }
+}
 
+class _DetailItem {
+  final String label;
+  final String value;
+  const _DetailItem(this.label, this.value);
 }
