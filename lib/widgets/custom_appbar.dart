@@ -91,6 +91,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
                 
                     MenuAnchor(
+                      alignmentOffset: const Offset(0, 15),
                       style: MenuStyle(
                         backgroundColor:
                             WidgetStateProperty.all(Colors.white),
