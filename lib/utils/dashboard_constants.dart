@@ -7,7 +7,7 @@ class DashboardConstants {
       PolicyData.getSamplePolicies().where((p) => p.status != PolicyStatus.expired).toList();
 
   // Life Insurance
-  static const double lifeRecommendedMultiplier = 25;
+  static const double lifeRecommendedMultiplier = 15;
   static double get lifePresentCover => unexpiredPolicies
       .where((p) => p.category == PolicyCategory.life)
       .fold(0.0, (sum, p) => sum + p.sumInsured);
@@ -16,7 +16,7 @@ class DashboardConstants {
   static double get lifeCoveragePercent => lifeRecommendedCover > 0 ? (lifePresentCover / lifeRecommendedCover) * 100 : 0;
 
   // Health Insurance
-  static const double healthRecommendedMultiplier = 2;
+  static const double healthRecommendedMultiplier = 0.5;
   static double get healthPresentCover => unexpiredPolicies
       .where((p) => p.category == PolicyCategory.health)
       .fold(0.0, (sum, p) => sum + p.sumInsured);
