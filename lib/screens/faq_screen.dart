@@ -20,6 +20,7 @@ class FaqScreen extends StatelessWidget {
       appBar: CustomAppBar(
         customerName: customerName,
         customerId: customerId,
+        showBackButton: true,
         onLogoTap: () {
           Navigator.of(context).popUntil((route) => route.isFirst);
         },
@@ -32,22 +33,13 @@ class FaqScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.arrow_back),
-                      onPressed: () => Navigator.pop(context),
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      'Help Center',
-                      style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 24,
-                            color: AppTheme.textDark,
-                          ),
-                    ),
-                  ],
+                Text(
+                  'Help Center',
+                  style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24,
+                        color: AppTheme.textDark,
+                      ),
                 ),
                 const SizedBox(height: 24),
                 FaqSection(

@@ -1,4 +1,5 @@
 import '../models/policy_model.dart';
+import 'risk_calculator.dart';
 
 class DashboardConstants {
   static const double annualIncome = 600000;
@@ -46,14 +47,27 @@ class DashboardConstants {
   static double get totalProtection => unexpiredPolicies.fold(0.0, (sum, p) => sum + p.sumInsured);
   static double get totalPremium => unexpiredPolicies.fold(0.0, (sum, p) => sum + p.annualPremium);
 
-  static String getRiskStatus() {
-    final lifeRating = getRating(lifeCoveragePercent);
-    final healthRating = getRating(healthCoveragePercent);
-    final vehicleRating = getRating(vehicleCoveragePercent);
+  /// New risk status calculation based on coverage gaps
+  static Map<String, dynamic> getDetailedRiskStatus() {
+    final policies = [
+      DashboardPolicy(
+        exists: lifePresentCover > 0,
+        coverageGap: lifeRecommendedCover > 0 ? (lifeGap / lifeRecommendedCover) * 100 : 0,
+      ),
+      DashboardPolicy(
+        exists: healthPresentCover > 0,
+        coverageGap: healthRecommendedCover > 0 ? (healthGap / healthRecommendedCover) * 100 : 0,
+      ),
+      DashboardPolicy(
+        exists: vehiclePresentCover > 0,
+        coverageGap: vehicleIdealIDV > 0 ? (vehicleGap / vehicleIdealIDV) * 100 : 0,
+      ),
+    ];
+    return calculateRiskStatus(policies);
+  }
 
-    final ratings = [lifeRating, healthRating, vehicleRating];
-    if (ratings.contains("Critical") || ratings.contains("Very Low")) return "HIGH";
-    if (ratings.contains("Low") || ratings.contains("Fair")) return "MEDIUM";
-    return "LOW";
+  // Deprecated: Use getDetailedRiskStatus()["riskStatus"] instead
+  static String getRiskStatus() {
+    return getDetailedRiskStatus()["riskStatus"].toString().toUpperCase();
   }
 }

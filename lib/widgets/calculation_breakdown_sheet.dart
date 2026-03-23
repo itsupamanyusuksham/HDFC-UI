@@ -103,14 +103,15 @@ class CalculationBreakdownSheet extends StatelessWidget {
                                 color: Color(0xFF1E293B),
                               ),
                             ),
-                            Text(
-                              rating,
-                              style: TextStyle(
-                                fontSize: 13,
-                                color: _getRatingColor(rating),
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
+                                if (currentCoverage > 0)
+                                  Text(
+                                    rating,
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      color: _getRatingColor(rating),
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
                           ],
                         ),
                       ],
@@ -192,16 +193,17 @@ class CalculationBreakdownSheet extends StatelessWidget {
               const Color(0xFFE53935),
             ),
 
-            const SizedBox(height: 16),
-
-            _buildFormulaBlock(
-              "Risk Rating",
-              Icons.warning_amber_rounded,
-              null,
-              rating,
-              const Color(0xFFE53935),
-              isRating: true,
-            ),
+            if (currentCoverage > 0) ...[
+              const SizedBox(height: 16),
+              _buildFormulaBlock(
+                "Risk Rating",
+                Icons.warning_amber_rounded,
+                null,
+                rating,
+                const Color(0xFFE53935),
+                isRating: true,
+              ),
+            ],
 
             const SizedBox(height: 32),
 

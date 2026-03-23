@@ -10,12 +10,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String customerName;
   final String customerId;
   final VoidCallback? onLogoTap;
+  final bool showBackButton;
 
   const CustomAppBar({
     super.key,
     required this.customerName,
     required this.customerId,
     this.onLogoTap,
+    this.showBackButton = false,
   });
 
   @override
@@ -35,15 +37,27 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // HDFC Logo on app bar
-              InkWell(
-                onTap: onLogoTap,
-                child: SvgPicture.asset(
-                  'assets/images/hdfc-bank-logo.svg',
-                  height: isMobile
-                      ? (screenWidth < 360 ? 18 : 22)
-                      : 29,
-                ),
+              // HDFC Logo and Back Button
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (showBackButton)
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back_ios,
+                          color: Colors.white, size: 20),
+                      onPressed: () => Navigator.maybePop(context),
+                      padding: EdgeInsets.zero,
+                      constraints: const BoxConstraints(),
+                    ),
+                  if (showBackButton) const SizedBox(width: 12),
+                  InkWell(
+                    onTap: onLogoTap,
+                    child: SvgPicture.asset(
+                      'assets/images/hdfc-bank-logo.svg',
+                      height: isMobile ? (screenWidth < 360 ? 18 : 22) : 29,
+                    ),
+                  ),
+                ],
               ),
 
               Flexible(

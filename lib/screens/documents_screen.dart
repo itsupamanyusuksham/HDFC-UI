@@ -24,6 +24,7 @@ class DocumentsScreen extends StatelessWidget {
       appBar: CustomAppBar(
         customerName: customerName,
         customerId: customerId,
+        showBackButton: true,
         onLogoTap: () {
           Navigator.of(context).popUntil((route) => route.isFirst);
         },
@@ -36,22 +37,13 @@ class DocumentsScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.arrow_back),
-                      onPressed: () => Navigator.pop(context),
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      'Documents & Certificates',
-                      style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 28,
-                            color: AppTheme.textDark,
-                          ),
-                    ),
-                  ],
+                Text(
+                  'Documents & Certificates',
+                  style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 28,
+                        color: AppTheme.textDark,
+                      ),
                 ),
                 const SizedBox(height: AppTheme.spacing8),
                 Text(

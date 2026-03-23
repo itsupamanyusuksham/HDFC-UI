@@ -23,6 +23,7 @@ class PolicyDetailScreen extends StatelessWidget {
       appBar: CustomAppBar(
         customerName: customerName,
         customerId: customerId,
+        showBackButton: true,
         onLogoTap: () => Navigator.of(context).pop(),
       ),
       body: SingleChildScrollView(

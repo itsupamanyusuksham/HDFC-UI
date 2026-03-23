@@ -6,6 +6,7 @@ import '../widgets/calculation_breakdown_sheet.dart';
 import '../models/policy_model.dart';
 import '../utils/dashboard_constants.dart';
 import 'dashboard_screen.dart';
+import 'insights_screen.dart';
 
 class AnalyticsDashboard extends StatelessWidget {
   final String customerName;
@@ -21,7 +22,7 @@ class AnalyticsDashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     final policies = PolicyData.getSamplePolicies();
     final totalPolicies = policies.length;
-    final expiringSoon = policies.where((p) => p.status == PolicyStatus.due || p.status == PolicyStatus.expiringsoon).length;
+    // final expiringSoon = policies.where((p) => p.status == PolicyStatus.due || p.status == PolicyStatus.expiringsoon).length;
 
     // Calculate total values based on unexpired policies
     final unexpiredPolicies = policies.where((p) => p.status != PolicyStatus.expired).toList();
@@ -37,6 +38,7 @@ class AnalyticsDashboard extends StatelessWidget {
       appBar: CustomAppBar(
         customerName: customerName,
         customerId: customerId,
+        showBackButton: true,
         onLogoTap: () {
           Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
@@ -199,6 +201,15 @@ class AnalyticsDashboard extends StatelessWidget {
                             title: "Risk Status",
                             value: DashboardConstants.getRiskStatus(),
                             subtitle: "see insights",
+                            onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => InsightsScreen(
+                                  customerName: customerName,
+                                  customerId: customerId,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ],
