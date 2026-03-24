@@ -6,6 +6,7 @@ class InfoCard extends StatelessWidget {
   final String title;
   final String value;
   final String subtitle;
+  final VoidCallback? onTap;
 
   const InfoCard({
     super.key,
@@ -14,6 +15,7 @@ class InfoCard extends StatelessWidget {
     required this.title,
     required this.value,
     required this.subtitle,
+    this.onTap,
   });
 
   @override
@@ -44,85 +46,90 @@ class InfoCard extends StatelessWidget {
           padding = 18;
         }
 
-        return Container(
-
-          /// ⭐ VERY IMPORTANT
-          /// Prevents giant blue cards on tablets / folds
-          constraints: const BoxConstraints(
-            minHeight: 140,
-            maxHeight: 180,
-          ),
-
-          padding: EdgeInsets.all(padding),
-
-          decoration: BoxDecoration(
-            color: color,
+        return Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: onTap,
             borderRadius: BorderRadius.circular(20),
-            boxShadow: const [
-              BoxShadow(
-                color: Colors.black12,
-                blurRadius: 12,
-                offset: Offset(0, 6),
-              )
-            ],
-          ),
-
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-
-            /// ⭐ REMOVE SPACE BETWEEN (this caused stretching)
-            mainAxisSize: MainAxisSize.min,
-
-            children: [
-
-              /// ICON
-              Icon(
-                icon,
-                color: Colors.white,
-                size: iconSize,
+            child: Container(
+              /// ⭐ VERY IMPORTANT
+              /// Prevents giant blue cards on tablets / folds
+              constraints: const BoxConstraints(
+                minHeight: 140,
+                maxHeight: 180,
               ),
 
-              const SizedBox(height: 16),
+              padding: EdgeInsets.all(padding),
 
-              /// TITLE
-              Text(
-                title,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  color: Colors.white.withOpacity(0.9),
-                  fontSize: titleSize,
-                  fontWeight: FontWeight.w500,
-                ),
+              decoration: BoxDecoration(
+                color: color,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 12,
+                    offset: Offset(0, 6),
+                  )
+                ],
               ),
 
-              const SizedBox(height: 6),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
 
-              /// VALUE
-              Text(
-                value,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: valueSize,
-                  fontWeight: FontWeight.bold,
-                ),
+                /// ⭐ REMOVE SPACE BETWEEN (this caused stretching)
+                mainAxisSize: MainAxisSize.min,
+
+                children: [
+                  /// ICON
+                  Icon(
+                    icon,
+                    color: Colors.white,
+                    size: iconSize,
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  /// TITLE
+                  Text(
+                    title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: Colors.white.withOpacity(0.9),
+                      fontSize: titleSize,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+
+                  const SizedBox(height: 6),
+
+                  /// VALUE
+                  Text(
+                    value,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: valueSize,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+
+                  const SizedBox(height: 4),
+
+                  /// SUBTITLE
+                  Text(
+                    subtitle,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: Colors.white.withOpacity(0.75),
+                      fontSize: subtitleSize,
+                    ),
+                  ),
+                ],
               ),
-
-              const SizedBox(height: 4),
-
-              /// SUBTITLE
-              Text(
-                subtitle,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  color: Colors.white.withOpacity(0.75),
-                  fontSize: subtitleSize,
-                ),
-              ),
-            ],
+            ),
           ),
         );
       },

@@ -23,6 +23,7 @@ class PolicyDetailScreen extends StatelessWidget {
       appBar: CustomAppBar(
         customerName: customerName,
         customerId: customerId,
+        showBackButton: true,
         onLogoTap: () => Navigator.of(context).pop(),
       ),
       body: SingleChildScrollView(
@@ -58,10 +59,7 @@ class PolicyDetailScreen extends StatelessWidget {
                   }
                 },
               ),
-              const SizedBox(height: AppTheme.spacing32),
-              
-              // Bottom Action Buttons
-              _buildActionButtons(context),
+              const SizedBox(height: AppTheme.spacing24),
             ],
           ),
         ),
@@ -266,108 +264,10 @@ class PolicyDetailScreen extends StatelessWidget {
       ),
     );
   }
-
-  Widget _buildActionButtons(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final isCompact = constraints.maxWidth < 800;
-        
-        final buttons = [
-          _ActionButton(
-            icon: Icons.file_download_outlined,
-            label: 'Download Policy',
-            onTap: () {},
-          ),
-          SizedBox(
-            width: isCompact ? 0 : AppTheme.spacing16,
-            height: isCompact ? AppTheme.spacing16 : 0,
-          ),
-          _ActionButton(
-            icon: Icons.description_outlined,
-            label: 'File a Claim',
-            onTap: () {},
-          ),
-          SizedBox(
-            width: isCompact ? 0 : AppTheme.spacing16,
-            height: isCompact ? AppTheme.spacing16 : 0,
-          ),
-          _ActionButton(
-            icon: Icons.shield_outlined,
-            label: 'Manage Policy',
-            onTap: () {},
-          ),
-        ];
-
-        return isCompact 
-            ? Column(
-                mainAxisSize: MainAxisSize.min,
-                children: buttons,
-              )
-            : Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: buttons.map((widget) => widget is _ActionButton 
-                  ? Expanded(child: widget) 
-                  : widget).toList(),
-              );
-      },
-    );
-  }
 }
 
 class _DetailItem {
   final String label;
   final String value;
   const _DetailItem(this.label, this.value);
-}
-
-class _ActionButton extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final VoidCallback onTap;
-
-  const _ActionButton({
-    required this.icon,
-    required this.label,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 56,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(AppTheme.radiusPill),
-        boxShadow: AppTheme.cardShadow,
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: onTap,
-          borderRadius: BorderRadius.circular(AppTheme.radiusPill),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(icon, size: 24, color: Colors.black),
-                const SizedBox(width: 12),
-                Flexible(
-                  child: Text(
-                    label,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                      color: Colors.black,
-                    ),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 }

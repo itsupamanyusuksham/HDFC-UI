@@ -91,8 +91,8 @@ class PolicyData {
         policyId: 'HS-2025-189799',
         description: 'Health coverage for the family',
         expiryDate: now.add(const Duration(days: 100)), 
-        annualPremium: 40000,
-        sumInsured: 40000,
+        annualPremium: 5800,
+        sumInsured: 135000,
         category: PolicyCategory.health,
       ),
       Policy(
@@ -101,8 +101,8 @@ class PolicyData {
         policyId: 'LP-2025-189800',
         description: 'Term life insurance plan',
         expiryDate: now.add(const Duration(days: 15)), 
-        annualPremium: 20000,
-        sumInsured: 2000000,
+        annualPremium: 32000,
+        sumInsured: 6000000,
         category: PolicyCategory.life,
       ),
       Policy(
@@ -111,8 +111,8 @@ class PolicyData {
         policyId: 'SP-2025-189801',
         description: 'Savings and protection plan',
         expiryDate: now.subtract(const Duration(days: 45)), 
-        annualPremium: 10000,
-        sumInsured: 1000000,
+        annualPremium: 5000,
+        sumInsured: 100000,
         category: PolicyCategory.life,
       ),
       Policy(
@@ -121,8 +121,8 @@ class PolicyData {
         policyId: 'HS-2025-189802',
         description: 'Enhanced health coverage',
         expiryDate: now.add(const Duration(days: 60)), 
-        annualPremium: 45000,
-        sumInsured: 1000000,
+        annualPremium: 1500,
+        sumInsured: 70000,
         category: PolicyCategory.health,
       ),
       Policy(
@@ -131,8 +131,8 @@ class PolicyData {
         policyId: 'GS-2025-189803',
         description: 'Investment linked plan',
         expiryDate: now.add(const Duration(days: 5)), 
-        annualPremium: 30000,
-        sumInsured: 5000000,
+        annualPremium: 6000,
+        sumInsured: 500000,
         category: PolicyCategory.life,
       ),
       Policy(
@@ -142,7 +142,7 @@ class PolicyData {
         description: 'Online term insurance',
         expiryDate: now.add(const Duration(days: 200)), 
         annualPremium: 15000,
-        sumInsured: 10000000,
+        sumInsured: 1000000,
         category: PolicyCategory.life,
       ),
       Policy(
@@ -151,8 +151,8 @@ class PolicyData {
         policyId: 'CI-2023-142536',
         description: 'Critical illness coverage plan',
         expiryDate: now.subtract(const Duration(days: 10)), 
-        annualPremium: 15000,
-        sumInsured: 500000,
+        annualPremium: 5000,
+        sumInsured: 100000,
         category: PolicyCategory.health,
       ),
       Policy(
@@ -162,7 +162,7 @@ class PolicyData {
         description: 'Comprehensive car insurance',
         expiryDate: now.subtract(const Duration(days: 400)), 
         annualPremium: 12000,
-        sumInsured: 450000,
+        sumInsured: 500000,
         category: PolicyCategory.others,
       ),
     ];

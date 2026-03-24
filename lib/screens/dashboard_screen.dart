@@ -70,10 +70,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   double get _totalAnnualPremium =>
-      _allPolicies.fold(0, (sum, p) => sum + p.annualPremium);
+      _allPolicies.where((p) => p.status != PolicyStatus.expired).fold(0.0, (sum, p) => sum + p.annualPremium);
 
   double get _totalCoverage =>
-      _allPolicies.fold(0, (sum, p) => sum + p.sumInsured);
+      _allPolicies.where((p) => p.status != PolicyStatus.expired).fold(0.0, (sum, p) => sum + p.sumInsured);
 
   @override
   Widget build(BuildContext context) {

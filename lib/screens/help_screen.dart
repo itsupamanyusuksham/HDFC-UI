@@ -74,6 +74,7 @@ class _HelpScreenState extends State<HelpScreen> {
       appBar: CustomAppBar(
         customerName: widget.customerName,
         customerId: widget.customerId,
+        showBackButton: true,
         onLogoTap: () {
           Navigator.of(context).popUntil((route) => route.isFirst);
         },
